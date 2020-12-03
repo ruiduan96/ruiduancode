@@ -1,0 +1,82 @@
+虚拟机中进行新数据的插入：？？？？？？
+user = User.new
+user.name = 'educoder'
+user.email = 'educoder@educoder.net'
+user.save
+
+
+在 users 表中插入一条记录，同样的插入功能还可以通过下面这条语句来实现：
+
+User.create(name: 'educoder', email: 'educoder@educoder.net')
+
+find 方法是 Rails 提供的按照 id 查找数据库记录的方法，
+
+user.destroy
+
+
+一系列的约束条件来查找精确/系列的数据库记录，这时 find 方法就显得无力，因此，Rails 提供 where 方法进行条件查询：
+
+User.where(name: 'educoder', email: 'educoder@educoder.net'
+
+Tips：使用 where 方法查询出结果后，需要使用 first 方法获取到模型对象！
+
+Ruby 是一门可读性很高的语言，在 Rails 中可读性也得到了很好的体现。例如我们可以：
+
+通过 User.all 来获取全部的数据库记录
+通过 User.first 来获取到第一条数据库记录
+通过 User.last 来获取到最后一条数据库记录
+
+
+ User.where(name: 'david').first.update_attributes({email: 'test@test.cn'})   //修改邮箱
+
+数据库的增 删  查  实现！！
+
+
+
+
+
+
+把 scaffold 传给 rails generate 命令就可以使用 Rails 的脚手架了。传给 scaffold 的参数是资源名的单数形式
+rails generate scaffold User name:string email:string
+
+
+rake db：migrate 的作用  迁移数据库到本项目，迁移数据库，更新数据模型，，使用新的 User 数据模型更新数据库，
+用 rake db:migrate 命令迁移数据库，在执行该建表操作前，Rails 会按照配置文件连接数据库并保持该数据库连接:
+**在 Unix 中，把源码编译成可执行的程序时，Make 扮演了很重要的角色。Rake 是 Ruby 版 Make，是使用 Ruby 语言编写的 Make 类程序。
+
+
+
+
+###########流程图
+路由文件 config/routes.rb
+控制器文件 users_controller.rb
+视图文件 index.html.erb
+模型文件 user.rb
+
+
+
+***先写路由配置，随之映射到控制器上面，视图与控制器动作的关系也是一一对应的，比如 index 控制器动作对应的视图就是 index.html.erb   （随之映射）
+上述第二行代码把 Users 资源中相关的 URL 按照上一小节的表格映射到对应控制器动作。resources 关键词将会产生该资源的所有路由，并映射到对应的控制器动作上。
+
+而与路由所对应的，控制器文件中也就会增加对应的控制器动作：
+
+控制器的第一个文件中有一个继承类的动作，通过继承类得到很多方法
+# app/models/user.rb
+class User < ActiveRecord::Base
+end
+这段代码看似很简单，但是 User 模型通过继承使用 Rails 中名为 ActiveRecord 的库后，具备了很多功能，User.all 就能返回数据库中的所有用户。
+
+
+
+视图代码中遍历了 @users，为每个用户生成一行 HTML。
+视图把代码转换成 HTML，然后控制器将其返回给浏览器，再显示出来。
+（视图把得到的用户信息，这个@users是所有的user信息，把这个@users的每一个用户的代码html化，然后把这个html交给浏览器渲染）
+
+
+？？？？？？配置路由文件
+resources :users      （这个resource是什么意思？？？？）
+  root 'users#index'   （把名叫index的user设置为根路由？？？？）
+
+我们先介绍模型的继承体系。所有模型都（通
+过 < 符号）继承自 ApplicationRecord 类，而这个类继承自 ActiveRecord::Base 类，这是 Active Record 为模
+型提供的基类。继承 ActiveRecord::Base 类，模型对象才能与数据库通讯，才能把数据库中的列看做 Ruby 中的属性，等等。

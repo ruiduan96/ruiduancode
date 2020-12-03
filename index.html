@@ -1,0 +1,33 @@
+<h1>Welcome#index</h1>
+<p>Find me in app/views/welcome/index.html.erb!!!!!!!!!!!!!</p>
+<div>
+  Welcome!|    |
+  <% if customer_logged_in? %>
+    <%= image_tag(current_customer.picture.url) if current_customer.picture? %>|    |
+    <%=current_customer.user_name %>
+    <%=link_to "my information", current_customer %>|    |
+    <%= link_to 'log out', sessions_customers_destroy_path,
+                    method: :post,
+                    data: { confirm: 'Are you sure?' } %>
+  <% else %>
+    <%=link_to "sign in", customers_new_path %>|    |
+    <%=link_to "log in", sessions_customers_new_path %>
+  <% end %>
+</div>
+<table>
+  <th>businesses nearby!!!</th>
+  <tr>
+    <th>user_name</th>
+  </tr>
+  <% @businesses.each do |business| %>
+    <tr>
+<!--      <td><%#= business.user_name %></td>-->
+      <td><%= link_to business.user_name, business_path(business) %></td>
+<!--      <td><%#= link_to 'Edit', edit_business_path(business) %></td>-->
+      <td><%= link_to 'Destroy', business_path(business),
+                      method: :delete,
+                      data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+<h1>this is the end of the page!</h1>
